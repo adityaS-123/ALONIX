@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design"; // Only import WalletSelector
 import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
-import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
+import { AccountAddress, Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 import "./Home.css";
 
-function Home() {
+const Home: React.FC= () => {
   const CONTRACT_ADDRESS = "ebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0";
   const aa = new Aptos(new AptosConfig({ network: Network.DEVNET }));
   const mname = "brand_nft_collection";
@@ -32,7 +32,15 @@ function Home() {
   const { connected, account, signAndSubmitTransaction } = useWallet();
 
   const displaynfts = async () =>{
-    
+    try {
+      const response = await aa.getAccountResource({
+        accountAddress: `${CONTRACT_ADDRESS}`, 
+        resourceType: "0xebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0::brand_nft_collection::CollectionList"
+      })
+      console.log('Fetched Reports:', response);
+    } catch (error) {
+      console.error("Failed to fetch reports:", error);
+    }
   }
 
   const handleTabChange = (tab) => {
@@ -83,7 +91,7 @@ function Home() {
       const txnRequest = await signAndSubmitTransaction(payload);
 
       console.log('Crime reported, Transaction Hash:', txnRequest.hash);
-      //fetchReports(); // Refresh reports after a new crime is reported
+      displaynfts(); // Refresh reports after a new crime is reported
     } catch (error) {
       console.error("Failed to report crime:", error);
     }
@@ -107,12 +115,6 @@ function Home() {
         <button
           onClick={() => handleTabChange("buy")}
           className={activeTab === "buy" ? "active" : ""}
-        >
-          Buy / Claim NFTs
-        </button>
-        <button
-          onClick={() => handleTabChange("sell")}
-          className={activeTab === "sell" ? "active" : ""}
         >
           Buy / Claim NFTs
         </button>
