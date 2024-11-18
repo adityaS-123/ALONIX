@@ -31,4 +31,4 @@ Welcome to the **Decentralized NFT Marketplace**! This project leverages the pow
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   cd ALONIX
