@@ -6,6 +6,7 @@ import "./Home.css";
 
 function Home() {
   const [activeTab, setActiveTab] = useState("buy");
+  const [nfts, setNfts] = useState([]); // Dynamic NFT data from backend
   const [showClaimForm, setShowClaimForm] = useState(false);
   const [formData, setFormData] = useState({
     address: "",
@@ -21,13 +22,31 @@ function Home() {
     items: "",
   });
   const [collectionMessage, setCollectionMessage] = useState("");
+  const [buyMessage, setBuyMessage] = useState("");
   const { connected, account } = useWallet();
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setShowClaimForm(false);
     setMessage("");
+    setBuyMessage("");
     setCollectionMessage("");
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleClaimSubmit = (e) => {
+    e.preventDefault();
+    setMessage("Your order has been placed");
+    setShowClaimForm(false);
+    setFormData({ address: "", name: "", phone: "", email: "" });
+  };
+
+  const handleBuySubmit = (nft) => {
+    setBuyMessage(`You have successfully purchased ${nft.name} for ${nft.price} APT.`);
   };
 
   const handleCollectionChange = (e) => {
@@ -67,6 +86,70 @@ function Home() {
           Create Collection Drop
         </button>
       </div>
+
+      {activeTab === "buy" && (
+        <div className="nft-grid">
+          {nfts.length > 0 ? (
+            nfts.map((nft) => (
+              <div className="nft-card" key={nft.id}>
+                <img src={nft.image} alt={nft.name} className="nft-image" />
+                <h2>{nft.name}</h2>
+                <p>{nft.price} APT</p>
+                <div className="buttons">
+                  <button onClick={() => setShowClaimForm(true)}>Claim</button>
+                  <button onClick={() => handleBuySubmit(nft)}>Buy</button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No NFTs available currently. Please check back later.</p>
+          )}
+        </div>
+      )}
+
+      {showClaimForm && (
+        <div className="claim-form">
+          <h3>Enter Your Details</h3>
+          <form onSubmit={handleClaimSubmit}>
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      )}
+
+      {message && <p className="confirmation-message">{message}</p>}
+      {buyMessage && <p className="confirmation-message">{buyMessage}</p>}
 
       {activeTab === "create" && (
         <div className="collection-form">
