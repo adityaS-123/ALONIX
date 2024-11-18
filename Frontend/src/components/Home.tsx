@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design"; // Only import WalletSelector
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet, InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 import "./Home.css";
 
 function Home() {
+  const CONTRACT_ADDRESS = "ebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0";
+  const aa = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+  const mname = "brand_nft_collection";
+
   const [activeTab, setActiveTab] = useState("buy");
   const [nfts, setNfts] = useState([]); // Dynamic NFT data from backend
   const [showClaimForm, setShowClaimForm] = useState(false);
@@ -19,11 +24,16 @@ function Home() {
     collectionName: "",
     description: "",
     supply: "",
-    items: "",
+    price: "",
+    ImageURL: "",
   });
   const [collectionMessage, setCollectionMessage] = useState("");
   const [buyMessage, setBuyMessage] = useState("");
-  const { connected, account } = useWallet();
+  const { connected, account, signAndSubmitTransaction } = useWallet();
+
+  const displaynfts = async () =>{
+    
+  }
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -54,12 +64,33 @@ function Home() {
     setCollectionData({ ...collectionData, [name]: value });
   };
 
-  const handleCollectionSubmit = (e) => {
+  const handleCollectionSubmit = async (e) => {
+    if (!account) {
+      console.error("Wallet not connected!");
+      return;
+    }
+    
     e.preventDefault();
+    const pp = 10;
+
+    const payload: InputTransactionData = {
+      data: {
+        function: `${CONTRACT_ADDRESS}::${mname}::create_collection`,
+        functionArguments: [collectionData.description, collectionData.collectionName, collectionData.supply, collectionData.ImageURL, pp],
+      },
+    };
+    try {
+      const txnRequest = await signAndSubmitTransaction(payload);
+
+      console.log('Crime reported, Transaction Hash:', txnRequest.hash);
+      //fetchReports(); // Refresh reports after a new crime is reported
+    } catch (error) {
+      console.error("Failed to report crime:", error);
+    }
     setCollectionMessage(
       `Collection "${collectionData.collectionName}" has been created successfully!`
     );
-    setCollectionData({ collectionName: "", description: "", supply: "", items: "" });
+    setCollectionData({ collectionName: "", description: "", supply: "", price: "", ImageURL: "" });
   };
 
   return (
@@ -89,7 +120,7 @@ function Home() {
 
       {activeTab === "buy" && (
         <div className="nft-grid">
-          {nfts.length > 0 ? (
+          {/* {nfts.length > 0 ? (
             nfts.map((nft) => (
               <div className="nft-card" key={nft.id}>
                 <img src={nft.image} alt={nft.name} className="nft-image" />
@@ -103,7 +134,7 @@ function Home() {
             ))
           ) : (
             <p>No NFTs available currently. Please check back later.</p>
-          )}
+          )} */}
         </div>
       )}
 
@@ -172,6 +203,13 @@ function Home() {
             />
             <input
               type="number"
+              name="Price"
+              placeholder="Price"
+              value={collectionData.price}
+              onChange={handleCollectionChange}
+            />
+            <input
+              type="number"
               name="supply"
               placeholder="Supply"
               value={collectionData.supply}
@@ -179,10 +217,10 @@ function Home() {
               required
             />
             <input
-              type="number"
-              name="Price"
-              placeholder="Price"
-              value={collectionData.items}
+              type="text"
+              name="ImageURL"
+              placeholder="ImageURL"
+              value={collectionData.ImageURL}
               onChange={handleCollectionChange}
               required
             />
