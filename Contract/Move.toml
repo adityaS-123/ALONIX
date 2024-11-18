@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-alonix5 = "1edeb16d379962ef569ff02272efbe948533f20cf7c70670f8f1b0da2d3a156c"
+alonix = "ebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0"
 
 [dev-addresses]
 
