@@ -171,21 +171,21 @@ function Home() {
               onChange={handleCollectionChange}
               required
             />
-            <input
+            <textarea
               name="description"
               placeholder="Description"
               value={collectionData.description}
               onChange={handleCollectionChange}
               required
             />
-            <input
+            <textarea
               name="supply"
               placeholder="Supply"
               value={collectionData.items}
               onChange={handleCollectionChange}
               required
             />
-             <input
+             <textarea
               name="price"
               placeholder="Price"
               value={collectionData.items}
