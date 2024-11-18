@@ -1,0 +1,34 @@
+# 🛍️ Decentralized NFT Marketplace on Aptos
+
+Welcome to the **Decentralized NFT Marketplace**! This project leverages the power of **Aptos blockchain** to tokenize products as NFTs, empowering businesses and users with transparent, secure, and efficient transactions. 🚀
+
+---
+
+## 🌟 Features
+
+- **Buy/Claim NFTs**: Purchase product NFTs or claim items using NFT ownership.
+- **Sell NFTs**: Resell your purchased NFTs with ease.
+- **Create Collections**: Companies can launch exclusive product collections as NFTs.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js + Styled Components
+- **Blockchain**: Aptos (using `@aptos-labs/wallet-adapter`)
+- **Language**: TypeScript/JavaScript
+
+---
+
+## 🔧 Installation
+
+### Prerequisites
+- **Node.js** (v16+ recommended)
+- **npm** or **yarn**
+- Wallet supporting Aptos (e.g., Petra)
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
