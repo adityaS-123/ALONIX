@@ -43,6 +43,52 @@ const Home: React.FC= () => {
     }
   }
 
+  const buynft = async () =>{
+    if (!account) {
+      console.error("Wallet not connected!");
+      return;
+    }
+    
+    const collectionname1 = "";
+    const payload: InputTransactionData = {
+      data: {
+        function: `${CONTRACT_ADDRESS}::${mname}::mint_nft`,
+        functionArguments: [collectionname1,collectionname1,account?.address],
+      },
+    };
+    try {
+      const txnRequest = await signAndSubmitTransaction(payload);
+
+      console.log('Crime reported, Transaction Hash:', txnRequest.hash);
+      displaynfts(); // Refresh reports after a new crime is reported
+    } catch (error) {
+      console.error("Failed to report crime:", error);
+    }
+  }
+
+  const claimNFT = async () =>{
+    if (!account) {
+      console.error("Wallet not connected!");
+      return;
+    }
+    
+    const collectionname1 = "";
+    const payload: InputTransactionData = {
+      data: {
+        function: `${CONTRACT_ADDRESS}::${mname}::burn_nft`,
+        functionArguments: [collectionname1,collectionname1],
+      },
+    };
+    try {
+      const txnRequest = await signAndSubmitTransaction(payload);
+
+      console.log('Crime reported, Transaction Hash:', txnRequest.hash);
+      displaynfts(); // Refresh reports after a new crime is reported
+    } catch (error) {
+      console.error("Failed to report crime:", error);
+    }
+  }
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setShowClaimForm(false);
