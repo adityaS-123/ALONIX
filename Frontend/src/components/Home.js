@@ -95,9 +95,10 @@ function Home() {
               onChange={handleCollectionChange}
               required
             />
-            <textarea
-              name="items"
-              placeholder="Items (comma-separated)"
+            <input
+              type="number"
+              name="Price"
+              placeholder="Price"
               value={collectionData.items}
               onChange={handleCollectionChange}
               required
