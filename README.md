@@ -1,13 +1,12 @@
 # 🛍️ Decentralized NFT Marketplace on Aptos
 
-Welcome to the **Decentralized NFT Marketplace**! This project leverages the power of **Aptos blockchain** to tokenize products as NFTs, empowering businesses and users with transparent, secure, and efficient transactions. 🚀
+Welcome to the **ALONIX**! This project leverages the power of **Aptos blockchain** to tokenize products as NFTs, empowering businesses and users with transparent, secure, and efficient transactions. 🚀
 
 ---
 
 ## 🌟 Features
 
 - **Buy/Claim NFTs**: Purchase product NFTs or claim items using NFT ownership.
-- **Sell NFTs**: Resell your purchased NFTs with ease.
 - **Create Collections**: Companies can launch exclusive product collections as NFTs.
 
 ---
