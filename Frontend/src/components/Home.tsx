@@ -111,6 +111,12 @@ function Home() {
           Buy / Claim NFTs
         </button>
         <button
+          onClick={() => handleTabChange("sell")}
+          className={activeTab === "sell" ? "active" : ""}
+        >
+          Buy / Claim NFTs
+        </button>
+        <button
           onClick={() => handleTabChange("create")}
           className={activeTab === "create" ? "active" : ""}
         >
