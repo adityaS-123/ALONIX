@@ -1,4 +1,4 @@
-# 🛍️ Decentralized NFT Marketplace on Aptos
+# 🛍️ SPECIAL DROP/COLLECTION platform on Aptos
 
 Welcome to the **ALONIX**! This project leverages the power of **Aptos blockchain** to tokenize products as NFTs, empowering businesses and users with transparent, secure, and efficient transactions. 🚀
 
