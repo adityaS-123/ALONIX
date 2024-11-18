@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/Contract/.aptos
+/Contract/build
 # testing
 /coverage
 
