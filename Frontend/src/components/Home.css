@@ -182,6 +182,48 @@ body {
   text-align: center;
   font-size: 16px;
 }
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.nft-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nft-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.nft-card h3 {
+  margin: 12px 0 8px;
+  font-size: 1.2rem;
+}
+
+.nft-card p {
+  margin: 4px 0;
+}
+
+.nft-card button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nft-card button:hover {
+  background-color: #0056b3;
+}
 
 /* Responsive design adjustments */
 @media (max-width: 768px) {
