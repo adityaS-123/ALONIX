@@ -17,8 +17,8 @@ interface NFT {
 
 const Home: React.FC = () => {
   const CONTRACT_ADDRESS =
-    "ebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0";
-  const aa = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+    "2878782359cee95334ec1a33356390153dc8e74191299e31b391a138aab44c87";
+  const aa = new Aptos(new AptosConfig({ network: Network.TESTNET }));
   const mname = "brand_nft_collection";
 
   const [activeTab, setActiveTab] = useState("buy");
@@ -44,9 +44,8 @@ const Home: React.FC = () => {
       const response = await aa.getAccountResource({
         accountAddress: CONTRACT_ADDRESS,
         resourceType:
-          "0xebd9983149940c8db441c3e3ad1a8a36d4647f8c599751c781180b40b45995b0::brand_nft_collection::CollectionList",
+          `0x${CONTRACT_ADDRESS}::brand_nft_collection::CollectionList`,
       });
-
       const reports: NFT[] = response.reports; // Type the fetched data
       setNfts(reports);
       console.log("Fetched NFTs:", reports);
@@ -81,8 +80,28 @@ const Home: React.FC = () => {
     mintnft(nft);
     setBuyMessage(`You have successfully purchased ${nft.description} for ${nft.price} APT.`);
   };
-  const  handleClaimSubmit = async (nft:NFT) => {
 
+
+  const  handleClaimSubmit = async (nft:NFT) => {
+    if (!account) {
+      console.error("Wallet not connected!");
+      return;
+    }
+
+    const payload: InputTransactionData = {
+      data: {
+        function: `${CONTRACT_ADDRESS}::${mname}::burn_nft`,
+        functionArguments: [nft.description,account?.address]
+      },
+    };
+
+    try {
+      const txnRequest = await signAndSubmitTransaction(payload);
+      console.log("Collection created, Transaction Hash:", txnRequest.hash);
+      displaynfts(); // Refresh NFTs after creating a collection
+    } catch (error) {
+      console.error("Failed to create collection:", error);
+    }
   }
 
   const handleTabChange = (tab: string) => {

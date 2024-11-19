@@ -153,7 +153,7 @@ module alonix::brand_nft_collection {
         to_address: address,
     ) acquires BrandCollectionManager, NftCollection {
         let owner_addr = signer::address_of(owner);
-        assert!(exists<BrandCollectionManager>(owner_addr), E_UNAUTHORIZED);
+        //assert!(exists<BrandCollectionManager>(owner_addr), E_UNAUTHORIZED);
 
         let brand_manager = borrow_global_mut<BrandCollectionManager>(owner_addr);
         assert!(table::contains(&brand_manager.collections, collection_name), E_COLLECTION_NOT_EXISTS);
