@@ -18,6 +18,11 @@ Welcome to the **ALONIX**! This project leverages the power of **Aptos blockchai
 - **Language**: TypeScript/JavaScript
 
 ---
+## Project Link
+
+- https://alonix.vercel.app/
+
+---
 
 ## 🔧 Installation
 
