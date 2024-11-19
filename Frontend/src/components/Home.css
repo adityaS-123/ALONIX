@@ -224,15 +224,7 @@ body {
 .nft-card button:hover {
   background-color: #0056b3;
 }
-.nft-actions {
-  display: flex;
-  gap: 10px; /* Adjust space between buttons */
-}
 
-button {
-  padding: 10px;
-  cursor: pointer;
-}
 
 
 /* Responsive design adjustments */
