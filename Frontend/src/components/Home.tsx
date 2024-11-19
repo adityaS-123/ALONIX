@@ -9,9 +9,9 @@ import "./Home.css";
 interface NFT {
   creator: string;
   description: string;
-  metadata_uri: string;
-  price: string;
   supply: string;
+  price: string;
+  metadata_uri: string;
   total_minted: string;
 }
 
@@ -81,6 +81,9 @@ const Home: React.FC = () => {
     mintnft(nft);
     setBuyMessage(`You have successfully purchased ${nft.description} for ${nft.price} APT.`);
   };
+  const  handleClaimSubmit = async (nft:NFT) => {
+
+  }
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -157,28 +160,33 @@ const Home: React.FC = () => {
         </button>
       </div>
 
-      {activeTab === "buy" && (
-        <div className="nft-grid">
-          {nfts.length > 0 ? (
-            nfts.map((nft, index) => (
-              <div className="nft-card" key={index}>
-                <img
-                  src={nft.metadata_uri}
-                  alt={nft.description}
-                  className="nft-image"
-                />
-                <h3>{nft.description}</h3>
-                <p>Price: {nft.price} APT</p>
-                <p>Supply: {nft.supply}</p>
-                <p>Total Minted: {nft.total_minted}</p>
-                <button onClick={() => handleBuySubmit(nft)}>Buy</button>
-              </div>
-            ))
-          ) : (
-            <p>No NFTs available to display.</p>
-          )}
+     {activeTab === "buy" && (
+  <div className="nft-grid">
+    {nfts.length > 0 ? (
+      nfts.map((nft, index) => (
+        <div className="nft-card" key={index}>
+          <img
+            src={nft.metadata_uri}
+            alt={nft.description}
+            className="nft-image"
+          />
+          <h3>{nft.description}</h3>
+          <p>Price: {nft.price} APT</p>
+          <p>Supply: {nft.supply}</p>
+          <p>Total Minted: {nft.total_minted}</p>
+          <div className="nft-actions" style={{ display: 'flex', gap: '10px' }}>
+            <button onClick={() => handleBuySubmit(nft)} style={{ padding: '10px', cursor: 'pointer' }}>Buy</button>
+            <button onClick={() => handleClaimSubmit(nft)} style={{ padding: '10px', cursor: 'pointer' }}>Claim</button>
+          </div>
         </div>
-      )}
+      ))
+    ) : (
+      <p>No NFTs available</p>
+    )}
+  </div>
+)}
+
+
 
       {buyMessage && <p className="confirmation-message">{buyMessage}</p>}
 
