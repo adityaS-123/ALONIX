@@ -192,7 +192,6 @@ const Home: React.FC = () => {
           <h3>{nft.description}</h3>
           <p>Price: {nft.price} APT</p>
           <p>Supply: {nft.supply}</p>
-          <p>Total Minted: {nft.total_minted}</p>
           <div className="nft-actions" style={{ display: 'flex', gap: '10px' }}>
             <button onClick={() => handleBuySubmit(nft)} style={{ padding: '10px', cursor: 'pointer' }}>Buy</button>
             <button onClick={() => handleClaimSubmit(nft)} style={{ padding: '10px', cursor: 'pointer' }}>Claim</button>
