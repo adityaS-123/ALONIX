@@ -55,7 +55,30 @@ const Home: React.FC = () => {
     }
   };
 
+  const mintnft = async (nft: NFT) =>{
+    if (!account) {
+      console.error("Wallet not connected!");
+      return;
+    }
+
+    const payload: InputTransactionData = {
+      data: {
+        function: `${CONTRACT_ADDRESS}::${mname}::mint_nft`,
+        functionArguments: [nft.description,nft.description,account?.address]
+      },
+    };
+
+    try {
+      const txnRequest = await signAndSubmitTransaction(payload);
+      console.log("Collection created, Transaction Hash:", txnRequest.hash);
+      displaynfts(); // Refresh NFTs after creating a collection
+    } catch (error) {
+      console.error("Failed to create collection:", error);
+    }
+  }
+
   const handleBuySubmit = async (nft: NFT) => {
+    mintnft(nft);
     setBuyMessage(`You have successfully purchased ${nft.description} for ${nft.price} APT.`);
   };
 
